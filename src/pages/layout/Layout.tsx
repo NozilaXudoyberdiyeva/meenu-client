@@ -5,7 +5,6 @@ import useAuthStore from "@/store/authStore";
 const Layout = () => {
   const { role } = useAuthStore();
   if (!role) {
-    // Bu holatda zustand hali yuklanmagan, loading ko'rsatamiz
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p>Yuklanmoqda...</p>

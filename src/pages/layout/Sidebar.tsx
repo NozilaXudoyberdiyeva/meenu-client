@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
@@ -9,11 +10,17 @@ export const Sidebar = () => {
   const { role, logout } = useAuthStore();
   const location = useLocation();
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
 
   const menuItems = {
     owner: [
       { name: "Dashboard", path: "/owner" },
       { name: "Taomlar", path: "/owner/meals" },
+      { name: "Ishchilar", path: "/owner/employeers" },
       { name: "Ofitsantlar", path: "/owner/waiters" },
       { name: "Statistika", path: "/owner/stats" },
     ],
@@ -35,8 +42,9 @@ export const Sidebar = () => {
 
   return (
     <>
+      {/* Mobil sidebar */}
       <div className="md:hidden p-2">
-        <Sheet>
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
             <Button className="flex flex-col" variant="ghost" size="icon">
               <Menu />

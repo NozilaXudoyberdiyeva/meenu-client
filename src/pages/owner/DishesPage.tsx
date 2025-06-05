@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import useAuthStore from "@/store/authStore";
+import type { AxiosError } from "axios";
 
 export default function DishesPage() {
   type Dish = {
@@ -58,7 +59,7 @@ export default function DishesPage() {
   const mutation = useMutation({
     mutationFn: async (data: {
       name: string;
-      price: string;
+      price: number;
       categoryId: string;
     }) => {
       if (editDish) {
@@ -74,28 +75,22 @@ export default function DishesPage() {
       }
     },
     onSuccess: () => {
-      toast.success(`Taom ${editDish ? "tahrirlandi" : "qo'shildi"}`, {
-        style: { backgroundColor: "#F7374F", color: "#fff" },
-      });
+      toast.success(`Taom ${editDish ? "tahrirlandi" : "qo'shildi"}`);
       queryClient.invalidateQueries({ queryKey: ["dishes"] });
       setOpen(false);
       setForm({ name: "", price: "" });
       setSelectedCategory("");
       setEditDish(null);
     },
-    onError: () => {
-      toast.error("Xatolik yuz berdi", {
-        style: { backgroundColor: "#F7374F", color: "#fff" },
-      });
+    onError: (error: AxiosError<{ message: string }>) => {
+      console.log(error?.response?.data?.message);
     },
   });
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => await api.delete(`/product/${id}`),
     onSuccess: () => {
-      toast.success("Taom o‘chirildi", {
-        style: { backgroundColor: "#F7374F", color: "#fff" },
-      });
+      toast.success("Taom o‘chirildi");
       queryClient.invalidateQueries({ queryKey: ["dishes"] });
     },
   });
@@ -113,14 +108,12 @@ export default function DishesPage() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!selectedCategory) {
-      toast.error("Kategoriya tanlanmagan", {
-        style: { backgroundColor: "#F7374F", color: "#fff" },
-      });
+      toast.error("Kategoriya tanlanmagan");
       return;
     }
     mutation.mutate({
       name: form.name,
-      price: form.price,
+      price: parseInt(form.price),
       categoryId: selectedCategory,
     });
   };
@@ -159,7 +152,12 @@ export default function DishesPage() {
             {cat.name}
           </motion.h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             {filtered
               .filter((dish) => dish.categoryId === cat.id)
               .map((dish) => (
@@ -195,7 +193,7 @@ export default function DishesPage() {
                   </div>
                 </div>
               ))}
-          </div>
+          </motion.div>
         </div>
       ))}
 

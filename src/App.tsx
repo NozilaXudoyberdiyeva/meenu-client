@@ -4,6 +4,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Layout from "./pages/layout/Layout";
 import OwnerDashboard from "./pages/owner/OwnerDashboard";
 import DishesPage from "./pages/owner/DishesPage";
+import EmployeesPage from "./pages/owner/EmployeesPage";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route element={<Layout />}>
           <Route path="/owner" element={<OwnerDashboard />} />
           <Route path="/owner/meals" element={<DishesPage />} />
+          <Route path="/owner/employeers" element={<EmployeesPage />} />
           <Route path="/owner/waiters" element={<div>Ofitsantlar</div>} />
           <Route path="/owner/stats" element={<div>Statistika</div>} />
         </Route>
