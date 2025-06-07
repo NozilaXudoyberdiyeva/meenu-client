@@ -10,10 +10,11 @@ interface Order {
   total: number;
   createdAt: string;
   waiterId: string;
+  table: string;
 }
 
 export default function WaiterOrdersPage() {
-  const { id } = useParams(); // waiterId
+  const { id } = useParams();
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
 
@@ -66,7 +67,7 @@ export default function WaiterOrdersPage() {
       >
         {orders.map((order) => (
           <div key={order.id} className="border p-3 rounded-lg">
-            Buyurtma #{order.id.slice(-4)} — {order.total} so‘m
+            Buyurtma #{order.table} — {order.total} so‘m
           </div>
         ))}
 

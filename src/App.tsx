@@ -8,6 +8,9 @@ import EmployeesPage from "./pages/owner/EmployeesPage";
 import WaitersPage from "./pages/owner/OfetsantsPage";
 import WaiterOrdersPage from "./pages/owner/OfetsantOrderPage";
 import CategoriesPage from "./pages/owner/Categories";
+import MenuPage from "./pages/waiter/MenuPage";
+import CartPage from "./pages/waiter/CartPage";
+import CashierDashboard from "./pages/casher/CasherDashboard";
 
 const App = () => {
   return (
@@ -30,15 +33,15 @@ const App = () => {
 
       <Route element={<ProtectedRoute allowedRole="waiter" />}>
         <Route element={<Layout />}>
-          {/* <Route path="/waiter/menu" element={<WaiterMenu />} /> */}
-          <Route path="/waiter/cart" element={<div>Savat</div>} />
+          <Route path="/waiter" element={<MenuPage />} />
+          <Route path="/waiter/cart" element={<CartPage />} />
           <Route path="/waiter/salary" element={<div>Maosh</div>} />
         </Route>
       </Route>
 
-      <Route element={<ProtectedRoute allowedRole="cashier" />}>
+      <Route element={<ProtectedRoute allowedRole="casher" />}>
         <Route element={<Layout />}>
-          {/* <Route path="/cashier/orders" element={<CashierOrders />} /> */}
+          <Route path="/cashier" element={<CashierDashboard />} />
           <Route path="/cashier/payments" element={<div>To‘lovlar</div>} />
         </Route>
       </Route>

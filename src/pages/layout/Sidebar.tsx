@@ -26,7 +26,7 @@ export const Sidebar = () => {
       { name: "Statistika", path: "/owner/stats" },
     ],
     waiter: [
-      { name: "Menyu", path: "/waiter/menu" },
+      { name: "Menyu", path: "/waiter" },
       { name: "Savat", path: "/waiter/cart" },
       { name: "Maosh", path: "/waiter/salary" },
     ],
@@ -43,7 +43,6 @@ export const Sidebar = () => {
 
   return (
     <>
-      {/* Mobil sidebar */}
       <div className="md:hidden p-2">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>

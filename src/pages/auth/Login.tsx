@@ -48,7 +48,7 @@ export default function Login() {
 
       if (role === "owner") navigate("/owner");
       else if (role === "waiter") navigate("/waiter");
-      else if (role === "cashier") navigate("/cashier");
+      else if (role === "casher") navigate("/cashier");
     },
     onError: () => {
       toast.error("Login yoki parol xato!", {
