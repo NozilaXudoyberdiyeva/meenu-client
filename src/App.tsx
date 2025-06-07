@@ -43,6 +43,7 @@ const App = () => {
         <Route element={<Layout />}>
           <Route path="/cashier" element={<CashierDashboard />} />
           <Route path="/cashier/payments" element={<div>To‘lovlar</div>} />
+          <Route path="/cashier/orders" element={<div>Zakazlar</div>} />
         </Route>
       </Route>
     </Routes>

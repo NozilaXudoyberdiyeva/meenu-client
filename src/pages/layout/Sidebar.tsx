@@ -30,7 +30,8 @@ export const Sidebar = () => {
       { name: "Savat", path: "/waiter/cart" },
       { name: "Maosh", path: "/waiter/salary" },
     ],
-    cashier: [
+    casher: [
+      { name: "Dashboard", path: "/cashier" },
       { name: "Buyurtmalar", path: "/cashier/orders" },
       { name: "To‘lovlar", path: "/cashier/payments" },
     ],
