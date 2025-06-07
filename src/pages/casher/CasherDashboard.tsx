@@ -86,8 +86,6 @@ export default function CashierDashboard() {
 
   return (
     <div className="p-6 space-y-6">
-      <h2 className="text-2xl font-bold">📊 Bugungi Dashboard</h2>
-
       {loading ? (
         <p>Yuklanmoqda...</p>
       ) : (
@@ -116,7 +114,7 @@ export default function CashierDashboard() {
           )}
 
           <div className="flex items-center justify-between mt-6">
-            <h3 className="text-xl font-semibold">💸 Chiqimlar (Withdraw)</h3>
+            <h3 className="text-xl font-semibold">💸 Chiqimlar</h3>
             <Button
               onClick={() => {
                 setModalOpen(true);
