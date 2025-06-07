@@ -28,6 +28,7 @@ export default function DishesPage() {
     name: string;
     price: number;
     categoryId: string;
+    image?: string;
   };
   type Category = {
     id: string;
@@ -39,6 +40,7 @@ export default function DishesPage() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [search, setSearch] = useState("");
   const [form, setForm] = useState({ name: "", price: "" });
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const queryClient = useQueryClient();
   const { restaurantId } = useAuthStore();
 
@@ -61,6 +63,7 @@ export default function DishesPage() {
       name: string;
       price: number;
       categoryId: string;
+      image?: string;
     }) => {
       if (editDish) {
         return await api.patch(`/product/${editDish.id}`, {
@@ -80,6 +83,7 @@ export default function DishesPage() {
       setOpen(false);
       setForm({ name: "", price: "" });
       setSelectedCategory("");
+      setImageFile(null);
       setEditDish(null);
     },
     onError: (error: AxiosError<{ message: string }>) => {
@@ -105,16 +109,34 @@ export default function DishesPage() {
     }
   }, [editDish]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!selectedCategory) {
       toast.error("Kategoriya tanlanmagan");
       return;
     }
+
+    let imageUrl = "";
+    if (!imageFile) {
+      console.log("Image yo'q");
+      return;
+    }
+    if (imageFile) {
+      const formData = new FormData();
+      formData.append("file", imageFile);
+      const res = await api.post("/file", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      imageUrl = `http://63.178.101.27/file/${res.data.filename}`;
+    }
+
     mutation.mutate({
       name: form.name,
       price: parseInt(form.price),
       categoryId: selectedCategory,
+      image: imageUrl,
     });
   };
 
@@ -165,6 +187,13 @@ export default function DishesPage() {
                   key={dish.id}
                   className="bg-white rounded-xl shadow-md overflow-hidden border p-4"
                 >
+                  {dish.image && (
+                    <img
+                      src={`https://your-server.com/file/${dish.image}`}
+                      alt={dish.name}
+                      className="w-full h-40 object-cover mb-2 rounded"
+                    />
+                  )}
                   <h3 className="text-lg font-semibold text-gray-800">
                     {dish.name}
                   </h3>
@@ -239,6 +268,17 @@ export default function DishesPage() {
                   ))}
                 </SelectContent>
               </Select>
+            </div>
+            <div>
+              <Label>Rasm</Label>
+              <Input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) setImageFile(file);
+                }}
+              />
             </div>
             <Button
               type="submit"

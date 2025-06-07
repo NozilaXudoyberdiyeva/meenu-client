@@ -5,6 +5,9 @@ import Layout from "./pages/layout/Layout";
 import OwnerDashboard from "./pages/owner/OwnerDashboard";
 import DishesPage from "./pages/owner/DishesPage";
 import EmployeesPage from "./pages/owner/EmployeesPage";
+import WaitersPage from "./pages/owner/OfetsantsPage";
+import WaiterOrdersPage from "./pages/owner/OfetsantOrderPage";
+import CategoriesPage from "./pages/owner/Categories";
 
 const App = () => {
   return (
@@ -18,7 +21,9 @@ const App = () => {
           <Route path="/owner" element={<OwnerDashboard />} />
           <Route path="/owner/meals" element={<DishesPage />} />
           <Route path="/owner/employeers" element={<EmployeesPage />} />
-          <Route path="/owner/waiters" element={<div>Ofitsantlar</div>} />
+          <Route path="/owner/waiters" element={<WaitersPage />} />
+          <Route path="/owner/waiters/:orders" element={<WaiterOrdersPage />} />
+          <Route path="/owner/categories" element={<CategoriesPage />} />
           <Route path="/owner/stats" element={<div>Statistika</div>} />
         </Route>
       </Route>

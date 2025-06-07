@@ -22,6 +22,7 @@ export const Sidebar = () => {
       { name: "Taomlar", path: "/owner/meals" },
       { name: "Ishchilar", path: "/owner/employeers" },
       { name: "Ofitsantlar", path: "/owner/waiters" },
+      { name: "Taomlar turlari", path: "/owner/categories" },
       { name: "Statistika", path: "/owner/stats" },
     ],
     waiter: [
