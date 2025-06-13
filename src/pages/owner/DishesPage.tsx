@@ -101,15 +101,16 @@ export default function CategoryMenuPage() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveCategory(entry.target.getAttribute("data-id"));
+          const id = entry.target.getAttribute("data-id");
+          if (entry.isIntersecting && id) {
+            setActiveCategory(id);
           }
         });
       },
       {
         root: container,
-        threshold: 0.3,
-        rootMargin: "-40% 0px -60% 0px",
+        threshold: 0.4,
+        rootMargin: "-20% 0px -60% 0px",
       }
     );
 
@@ -122,23 +123,16 @@ export default function CategoryMenuPage() {
   }, [categories]);
 
   const scrollToCategory = (id: string) => {
-    const container = containerRef.current;
     const section = sectionRefs.current[id];
-
-    if (container && section) {
-      const containerTop = container.getBoundingClientRect().top;
-      const sectionTop = section.getBoundingClientRect().top;
-      const scrollOffset =
-        sectionTop - containerTop + container.scrollTop - 120;
-
+    const container = containerRef.current;
+    const offset = 200;
+    if (section && container) {
+      const sectionTop = section.offsetTop;
       container.scrollTo({
-        top: scrollOffset,
+        top: sectionTop - offset,
         behavior: "smooth",
       });
-    }
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth", block: "start" });
-      setActiveCategory(id); // bosilganda darrov rang o'zgaradi
+      setActiveCategory(id);
     }
   };
 
@@ -168,12 +162,9 @@ export default function CategoryMenuPage() {
   };
 
   return (
-    <div
-      ref={containerRef}
-      className="p-4 space-y-6 overflow-y-auto h-[calc(100vh-64px)]"
-    >
-      <div className="sticky top-0 z-40 bg-white/70 backdrop-blur-md py-2 space-y-2">
-        <div className="flex justify-between items-center">
+    <div ref={containerRef} className="p-0 space-y-6 overflow-y-auto h-[100vh]">
+      <div className="sticky top-0 z-40 backdrop-blur-md py-2 space-y-2">
+        <div className="flex justify-between items-center px-4">
           <Input
             placeholder="Taom nomi bo‘yicha qidiruv..."
             value={search}
@@ -188,7 +179,7 @@ export default function CategoryMenuPage() {
           </Button>
         </div>
 
-        <div className="flex gap-3 overflow-x-auto border-b pb-2 scrollbar-hide">
+        <div className="flex gap-3 overflow-x-auto border-b pb-2 scrollbar-hide px-4">
           {categories.map((cat) => (
             <div
               key={cat.id}
@@ -214,7 +205,7 @@ export default function CategoryMenuPage() {
         </div>
       </div>
 
-      <div className="space-y-10">
+      <div className="space-y-10 px-4">
         {categories.map((cat) => (
           <div
             key={cat.id}
