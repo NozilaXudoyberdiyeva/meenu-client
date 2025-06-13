@@ -1,5 +1,3 @@
-"use client";
-
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import api from "@/services/api";
@@ -36,6 +34,7 @@ export default function CategoryMenuPage() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({ name: "", price: "" });
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -96,6 +95,9 @@ export default function CategoryMenuPage() {
   });
 
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -105,8 +107,9 @@ export default function CategoryMenuPage() {
         });
       },
       {
-        rootMargin: "-50% 0px -50% 0px",
-        threshold: 0.1,
+        root: container,
+        threshold: 0.3,
+        rootMargin: "-40% 0px -60% 0px",
       }
     );
 
@@ -119,8 +122,24 @@ export default function CategoryMenuPage() {
   }, [categories]);
 
   const scrollToCategory = (id: string) => {
+    const container = containerRef.current;
     const section = sectionRefs.current[id];
-    if (section) section.scrollIntoView({ behavior: "smooth" });
+
+    if (container && section) {
+      const containerTop = container.getBoundingClientRect().top;
+      const sectionTop = section.getBoundingClientRect().top;
+      const scrollOffset =
+        sectionTop - containerTop + container.scrollTop - 120;
+
+      container.scrollTo({
+        top: scrollOffset,
+        behavior: "smooth",
+      });
+    }
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth", block: "start" });
+      setActiveCategory(id); // bosilganda darrov rang o'zgaradi
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -149,8 +168,11 @@ export default function CategoryMenuPage() {
   };
 
   return (
-    <div className="p-4 space-y-6 overflow-auto">
-      <div className="sticky top-0 z-40 bg-white py-2 space-y-2">
+    <div
+      ref={containerRef}
+      className="p-4 space-y-6 overflow-y-auto h-[calc(100vh-64px)]"
+    >
+      <div className="sticky top-0 z-40 bg-white/70 backdrop-blur-md py-2 space-y-2">
         <div className="flex justify-between items-center">
           <Input
             placeholder="Taom nomi bo‘yicha qidiruv..."

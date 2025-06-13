@@ -12,7 +12,7 @@ const Layout = () => {
     );
   }
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen">
       <div className=" shadow-md overflow-y-auto sticky top-0">
         <Sidebar />
       </div>

@@ -20,9 +20,9 @@ export const Sidebar = () => {
     owner: [
       { name: "Statistika", path: "/owner" },
       { name: "Taomlar", path: "/owner/meals" },
-      { name: "Ishchilar", path: "/owner/employeers" },
-      { name: "Ofitsantlar", path: "/owner/waiters" },
       { name: "Taomlar turlari", path: "/owner/categories" },
+      { name: "Ofitsantlar", path: "/owner/waiters" },
+      { name: "Ishchilar", path: "/owner/employeers" },
     ],
     waiter: [
       { name: "Menyu", path: "/waiter" },
