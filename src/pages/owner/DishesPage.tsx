@@ -197,7 +197,9 @@ export default function CategoryMenuPage() {
           <div
             key={cat.id}
             data-id={cat.id}
-            ref={(el) => (sectionRefs.current[cat.id] = el)}
+            ref={(el) => {
+              sectionRefs.current[cat.id] = el;
+            }}
           >
             <h2 className="text-xl font-bold text-[#F7374F] mb-4">
               {cat.name}
