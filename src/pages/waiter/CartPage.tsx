@@ -33,6 +33,7 @@ export default function CartPage() {
   };
 
   const userId = decodeToken(token || "")?.id;
+  console.log(userId);
 
   const decreaseQty = (id: string) => {
     const item = cart.find((d) => d.id === id);
@@ -151,7 +152,6 @@ export default function CartPage() {
             Buyurtma berish
           </button>
 
-          {/* Dialog for zakaz nomi */}
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent>
               <DialogHeader>

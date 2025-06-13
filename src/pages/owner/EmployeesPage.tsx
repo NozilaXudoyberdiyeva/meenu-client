@@ -192,7 +192,7 @@ export default function EmployeesPage() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="WAITER">Afitsant</SelectItem>
-                <SelectItem value="CASHIER">Kassir</SelectItem>
+                <SelectItem value="CASHER">Kassir</SelectItem>
               </SelectContent>
             </Select>
 

@@ -12,10 +12,12 @@ const Layout = () => {
     );
   }
   return (
-    <div className="flex min-h-screen">
-      <Sidebar />
+    <div className="flex h-screen overflow-hidden">
+      <div className=" shadow-md overflow-y-auto sticky top-0">
+        <Sidebar />
+      </div>
 
-      <main className="flex-1 bg-gray-50 p-4">
+      <main className="flex-1 overflow-y-auto bg-gray-50 p-4">
         <Outlet />
       </main>
     </div>

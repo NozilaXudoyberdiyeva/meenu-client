@@ -91,7 +91,7 @@ export default function CategoryPage() {
       const res = await api.post("/file", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      imageUrl = `http://63.178.101.27/file/${res.data.filename}`;
+      imageUrl = res.data.filename;
     }
 
     mutation.mutate({
@@ -116,7 +116,7 @@ export default function CategoryPage() {
       </div>
 
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
+        className="flex gap-4 overflow-x-auto scrollbar-hide pb-2"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -124,11 +124,11 @@ export default function CategoryPage() {
         {categories.map((cat) => (
           <div
             key={cat.id}
-            className="border p-4 rounded-xl shadow-sm bg-white space-y-2"
+            className="min-w-[220px] border p-4 rounded-xl shadow-sm bg-white space-y-2"
           >
             {cat.image && (
               <img
-                src={cat.image}
+                src={`https://devtools.uz/file/${cat.image}`}
                 alt={cat.name}
                 className="w-full h-40 object-cover rounded"
               />

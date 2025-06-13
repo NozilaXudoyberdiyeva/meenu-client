@@ -6,12 +6,12 @@ import OwnerDashboard from "./pages/owner/OwnerDashboard";
 import DishesPage from "./pages/owner/DishesPage";
 import EmployeesPage from "./pages/owner/EmployeesPage";
 import WaitersPage from "./pages/owner/OfetsantsPage";
-import WaiterOrdersPage from "./pages/owner/OfetsantOrderPage";
 import CategoriesPage from "./pages/owner/Categories";
 import MenuPage from "./pages/waiter/MenuPage";
 import CartPage from "./pages/waiter/CartPage";
 import CashierDashboard from "./pages/casher/CasherDashboard";
 import CashierOrders from "./pages/casher/CasherOrder";
+import WaiterSalaryPage from "./pages/waiter/WaiterSalary";
 
 const App = () => {
   return (
@@ -26,7 +26,7 @@ const App = () => {
           <Route path="/owner/meals" element={<DishesPage />} />
           <Route path="/owner/employeers" element={<EmployeesPage />} />
           <Route path="/owner/waiters" element={<WaitersPage />} />
-          <Route path="/owner/waiters/:orders" element={<WaiterOrdersPage />} />
+          <Route path="/owner/waiters/:orders" element={<h1>Orders</h1>} />
           <Route path="/owner/categories" element={<CategoriesPage />} />
           <Route path="/owner/stats" element={<div>Statistika</div>} />
         </Route>
@@ -36,7 +36,7 @@ const App = () => {
         <Route element={<Layout />}>
           <Route path="/waiter" element={<MenuPage />} />
           <Route path="/waiter/cart" element={<CartPage />} />
-          <Route path="/waiter/salary" element={<div>Maosh</div>} />
+          <Route path="/waiter/salary" element={<WaiterSalaryPage />} />
         </Route>
       </Route>
 

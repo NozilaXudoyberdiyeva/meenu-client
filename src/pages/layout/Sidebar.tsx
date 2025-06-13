@@ -18,12 +18,11 @@ export const Sidebar = () => {
 
   const menuItems = {
     owner: [
-      { name: "Dashboard", path: "/owner" },
+      { name: "Statistika", path: "/owner" },
       { name: "Taomlar", path: "/owner/meals" },
       { name: "Ishchilar", path: "/owner/employeers" },
       { name: "Ofitsantlar", path: "/owner/waiters" },
       { name: "Taomlar turlari", path: "/owner/categories" },
-      { name: "Statistika", path: "/owner/stats" },
     ],
     waiter: [
       { name: "Menyu", path: "/waiter" },
@@ -31,9 +30,9 @@ export const Sidebar = () => {
       { name: "Maosh", path: "/waiter/salary" },
     ],
     casher: [
-      { name: "Dashboard", path: "/cashier" },
+      { name: "Balans", path: "/cashier" },
       { name: "Buyurtmalar", path: "/cashier/orders" },
-      { name: "To‘lovlar", path: "/cashier/payments" },
+      { name: "Kirim-chiqim", path: "/cashier/payments" },
     ],
   }[role || "waiter"];
 
