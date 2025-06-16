@@ -13,9 +13,9 @@ const Layout = () => {
   }
   return (
     <div className="flex h-screen">
-      <div className=" shadow-md overflow-y-auto sticky top-0">
-        <Sidebar />
-      </div>
+      {/* <div className=" shadow-md  "> */}
+      <Sidebar />
+      {/* </div> */}
 
       <main className="flex-1 overflow-y-auto bg-gray-50 p-4">
         <Outlet />

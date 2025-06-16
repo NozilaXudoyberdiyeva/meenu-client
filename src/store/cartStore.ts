@@ -18,6 +18,7 @@ interface CartStore {
   addToCart: (dish: Dish | CartDish) => void;
   removeFromCart: (id: string) => void;
   clearCart: () => void;
+  decrementFromCart: (id: string) => void;
 }
 
 export const useCartStore = create<CartStore>()(
@@ -36,6 +37,15 @@ export const useCartStore = create<CartStore>()(
           }
           return { cart: [...state.cart, { ...dish, quantity: 1 }] };
         }),
+      decrementFromCart: (id: string) =>
+        set((state) => ({
+          cart: state.cart
+            .map((item) =>
+              item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+            )
+            .filter((item) => item.quantity > 0),
+        })),
+
       removeFromCart: (id) =>
         set((state) => ({
           cart: state.cart.filter((d) => d.id !== id),

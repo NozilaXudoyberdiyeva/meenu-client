@@ -1,13 +1,23 @@
-import { useFinanceStats } from "@/hooks/useFinanceStats";
+import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
+import api from "@/services/api";
+import useAuthStore from "@/store/authStore";
 
 const OwnerDashboard = () => {
-  const { data, isLoading } = useFinanceStats();
+  const { restaurantId } = useAuthStore();
 
-  if (isLoading) return <p>Yuklanmoqda...</p>;
+  const { data: restaurants = [], isLoading } = useQuery({
+    queryKey: ["restaurant"],
+    queryFn: async () => (await api.get("/restaurant")).data,
+    enabled: !!restaurantId,
+  });
+
+  const restaurant = restaurants.find((r: any) => r.id === restaurantId);
 
   const format = (value?: number) =>
     value ? value.toLocaleString("uz-UZ") + " so‘m" : "0 so‘m";
+
+  if (isLoading) return <p>Yuklanmoqda...</p>;
 
   return (
     <div className="p-4">
@@ -26,17 +36,17 @@ const OwnerDashboard = () => {
         <h2 className="text-sm uppercase tracking-wider font-medium">
           Umumiy balans
         </h2>
-        <p className="text-4xl font-bold">{format(data?.profit)}</p>
+        <p className="text-4xl font-bold">{format(restaurant?.balance)}</p>
 
         <div className="mt-4 text-sm flex justify-center flex-wrap gap-x-6 gap-y-2">
           <span>
-            Kirim: <strong>{format(data?.income)}</strong>
+            Kirim: <strong>{format(restaurant?.income)}</strong>
           </span>
           <span>
-            Chiqim: <strong>{format(data?.expense)}</strong>
+            Chiqim: <strong>{format(restaurant?.outcome)}</strong>
           </span>
           <span>
-            Foyda: <strong>{format(data?.profit)}</strong>
+            Foyda: <strong>{format(restaurant?.balance)}</strong>
           </span>
         </div>
       </motion.div>

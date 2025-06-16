@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useAuthStore from "@/store/authStore";
 import logo from "../../assets/images/meenulogo.png";
 
-export const Sidebar = () => {
+export const Sidebar = ({ onNavigate }: { onNavigate?: () => void }) => {
   const { role, logout } = useAuthStore();
   const location = useLocation();
   const navigate = useNavigate();
@@ -43,7 +43,7 @@ export const Sidebar = () => {
 
   return (
     <>
-      <div className="md:hidden p-2">
+      <div className="md:hidden p-2 absolute mb-2 top-0">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
             <Button className="flex flex-col" variant="ghost" size="icon">
@@ -63,7 +63,10 @@ export const Sidebar = () => {
                   className={`w-full justify-start text-white ${
                     location.pathname === item.path ? "bg-white/20" : ""
                   }`}
-                  onClick={() => navigate(item.path)}
+                  onClick={() => {
+                    navigate(item.path);
+                    onNavigate?.();
+                  }}
                 >
                   {item.name}
                 </Button>
@@ -90,7 +93,10 @@ export const Sidebar = () => {
               className={`w-full justify-start text-white ${
                 location.pathname === item.path ? "bg-white/20" : ""
               }`}
-              onClick={() => navigate(item.path)}
+              onClick={() => {
+                navigate(item.path);
+                onNavigate?.();
+              }}
             >
               {item.name}
             </Button>

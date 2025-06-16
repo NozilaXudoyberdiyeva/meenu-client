@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import useAuthStore from "@/store/authStore";
 import type { AxiosError } from "axios";
+import { Pencil, Trash2 } from "lucide-react";
 
 type Category = {
   id: string;
@@ -103,7 +104,7 @@ export default function CategoryPage() {
   return (
     <div className="p-4">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold">Kategoriyalar</h2>
+        <h2 className="text-2xl font-bold">Taomlar turlari</h2>
         <Button
           className="bg-[#F7374F] text-white"
           onClick={() => {
@@ -116,7 +117,7 @@ export default function CategoryPage() {
       </div>
 
       <motion.div
-        className="flex gap-4 overflow-x-auto scrollbar-hide pb-2"
+        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -124,34 +125,37 @@ export default function CategoryPage() {
         {categories.map((cat) => (
           <div
             key={cat.id}
-            className="min-w-[220px] border p-4 rounded-xl shadow-sm bg-white space-y-2"
+            className="border p-4 rounded-xl shadow-sm bg-white space-y-2 flex flex-col"
           >
             {cat.image && (
-              <img
-                src={`https://devtools.uz/file/${cat.image}`}
-                alt={cat.name}
-                className="w-full h-40 object-cover rounded"
-              />
+              <div className="w-full aspect-[4/3] overflow-hidden rounded max-w-[250px] mx-auto sm:max-w-full">
+                <img
+                  src={`https://devtools.uz/file/${cat.image}`}
+                  alt={cat.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
             )}
             <h3 className="text-lg font-medium">{cat.name}</h3>
             <div className="flex justify-end gap-2">
               <Button
-                variant="outline"
-                size="sm"
+                variant="ghost"
+                size="icon"
                 onClick={() => {
                   setEditCategory(cat);
                   setOpen(true);
                 }}
+                className="hover:bg-[#F7374F]/10"
               >
-                Tahrirlash
+                <Pencil size={16} />
               </Button>
               <Button
-                variant="outline"
-                size="sm"
-                className="text-red-600 border-red-300"
+                variant="ghost"
+                size="icon"
+                className="text-red-600 hover:bg-red-100"
                 onClick={() => deleteMutation.mutate(cat.id)}
               >
-                O‘chirish
+                <Trash2 size={16} />
               </Button>
             </div>
           </div>

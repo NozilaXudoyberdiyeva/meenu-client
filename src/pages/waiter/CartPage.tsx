@@ -13,7 +13,8 @@ import {
 import { Input } from "@/components/ui/input";
 
 export default function CartPage() {
-  const { cart, removeFromCart, clearCart, addToCart } = useCartStore();
+  const { cart, removeFromCart, clearCart, addToCart, decrementFromCart } =
+    useCartStore();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [table, setTable] = useState("");
@@ -34,16 +35,6 @@ export default function CartPage() {
 
   const userId = decodeToken(token || "")?.id;
   console.log(userId);
-
-  const decreaseQty = (id: string) => {
-    const item = cart.find((d) => d.id === id);
-    if (item && item.quantity > 1) {
-      removeFromCart(id);
-      addToCart({ ...item, quantity: item.quantity - 2 });
-    } else {
-      removeFromCart(id);
-    }
-  };
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -100,7 +91,7 @@ export default function CartPage() {
             >
               <div className="flex items-center gap-4">
                 <img
-                  src={item.image}
+                  src={`https://devtools.uz/file/${item.image}`}
                   alt={item.name}
                   className="w-14 h-14 object-cover rounded-lg"
                 />
@@ -113,7 +104,7 @@ export default function CartPage() {
               </div>
               <div className="flex items-center gap-2">
                 <button
-                  onClick={() => decreaseQty(item.id)}
+                  onClick={() => decrementFromCart(item.id)}
                   className="text-white px-3 py-1 rounded-full"
                   style={{ backgroundColor: "#F7374F" }}
                 >

@@ -187,8 +187,14 @@ export default function EmployeesPage() {
               value={form.role}
               onValueChange={(val) => setForm({ ...form, role: val })}
             >
-              <SelectTrigger>
-                <SelectValue placeholder="Rol tanlang" />
+              <SelectTrigger className="w-full">
+                <SelectValue>
+                  {form.role === "WAITER"
+                    ? "Afitsant"
+                    : form.role === "CASHER"
+                    ? "Kassir"
+                    : "Rol tanlang"}
+                </SelectValue>
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="WAITER">Afitsant</SelectItem>
@@ -234,7 +240,13 @@ export default function EmployeesPage() {
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-sm font-semibold text-[#F7374F]">
-                  {user.role}
+                  {user.role === "WAITER"
+                    ? "Afitsant"
+                    : user.role === "CASHER"
+                    ? "Kassir"
+                    : user.role === "OWNER"
+                    ? "Ega"
+                    : "Noma'lum"}
                 </span>
                 <Button
                   variant="ghost"
