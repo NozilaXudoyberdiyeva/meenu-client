@@ -149,7 +149,7 @@ export default function CartPage() {
                 <DialogTitle>Zakaz nomini kiriting</DialogTitle>
               </DialogHeader>
               <Input
-                placeholder="Masalan: Stol 4 yoki Shirinliklar"
+                placeholder="Masalan: Stol 4"
                 value={table}
                 onChange={(e) => setTable(e.target.value)}
               />

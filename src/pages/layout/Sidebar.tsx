@@ -23,16 +23,19 @@ export const Sidebar = ({ onNavigate }: { onNavigate?: () => void }) => {
       { name: "Taomlar turlari", path: "/owner/categories" },
       { name: "Ofitsantlar", path: "/owner/waiters" },
       { name: "Ishchilar", path: "/owner/employeers" },
+      { name: "Accaunt", path: "/owner/account" },
     ],
     waiter: [
       { name: "Menyu", path: "/waiter" },
       { name: "Savat", path: "/waiter/cart" },
       { name: "Maosh", path: "/waiter/salary" },
+      { name: "Accaunt", path: "/waiter/account" },
     ],
     casher: [
       { name: "Balans", path: "/cashier" },
       { name: "Buyurtmalar", path: "/cashier/orders" },
       { name: "Kirim-chiqim", path: "/cashier/payments" },
+      { name: "Accaunt", path: "/cashier/account" },
     ],
   }[role || "waiter"];
 

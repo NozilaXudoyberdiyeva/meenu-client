@@ -29,12 +29,22 @@ export default function CashierOrders() {
   const [loading, setLoading] = useState(true);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [confirmCancelId, setConfirmCancelId] = useState<string | null>(null);
+  const [filterDate, setFilterDate] = useState<string>("");
 
   const fetchOrders = async () => {
     setLoading(true);
     try {
       const res = await api.get(`/order?restaurantId=${restaurantId}`);
-      setOrders(res.data);
+      const today = new Date().toISOString().slice(0, 10);
+      const filtered = res.data
+        .filter((order: Order) => {
+          if (!filterDate) {
+            return order.createdAt.startsWith(today);
+          }
+          return order.createdAt.startsWith(filterDate);
+        })
+        .sort((a: Order, b: Order) => b.createdAt.localeCompare(a.createdAt));
+      setOrders(filtered);
     } catch (error: unknown) {
       const err = error as { response?: { data?: { message?: string } } };
       const message = err?.response?.data?.message || "Xatolik yuz berdi";
@@ -90,11 +100,21 @@ export default function CashierOrders() {
 
   useEffect(() => {
     if (restaurantId) fetchOrders();
-  }, [restaurantId]);
+  }, [restaurantId, filterDate]);
 
   return (
     <div className="p-6 space-y-6">
       <h2 className="text-2xl font-bold">📦 Zakazlar</h2>
+
+      <div className="flex items-center gap-2">
+        <label className="font-medium">Sana:</label>
+        <Input
+          type="date"
+          value={filterDate}
+          onChange={(e) => setFilterDate(e.target.value)}
+          className="max-w-xs"
+        />
+      </div>
 
       {loading ? (
         <p>Yuklanmoqda...</p>

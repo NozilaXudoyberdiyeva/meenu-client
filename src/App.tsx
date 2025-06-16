@@ -12,6 +12,8 @@ import CartPage from "./pages/waiter/CartPage";
 import CashierDashboard from "./pages/casher/CasherDashboard";
 import CashierOrders from "./pages/casher/CasherOrder";
 import WaiterSalaryPage from "./pages/waiter/WaiterSalary";
+import CashierFinancePage from "./pages/casher/CasherFinance";
+import AccountPage from "./pages/layout/Accaunt";
 
 const App = () => {
   return (
@@ -28,7 +30,7 @@ const App = () => {
           <Route path="/owner/waiters" element={<WaitersPage />} />
           <Route path="/owner/waiters/:orders" element={<h1>Orders</h1>} />
           <Route path="/owner/categories" element={<CategoriesPage />} />
-          <Route path="/owner/stats" element={<div>Statistika</div>} />
+          <Route path="/owner/account" element={<AccountPage />} />
         </Route>
       </Route>
 
@@ -37,14 +39,16 @@ const App = () => {
           <Route path="/waiter" element={<MenuPage />} />
           <Route path="/waiter/cart" element={<CartPage />} />
           <Route path="/waiter/salary" element={<WaiterSalaryPage />} />
+          <Route path="/waiter/account" element={<AccountPage />} />
         </Route>
       </Route>
 
       <Route element={<ProtectedRoute allowedRole="casher" />}>
         <Route element={<Layout />}>
           <Route path="/cashier" element={<CashierDashboard />} />
-          <Route path="/cashier/payments" element={<div>To‘lovlar</div>} />
           <Route path="/cashier/orders" element={<CashierOrders />} />
+          <Route path="/cashier/payments" element={<CashierFinancePage />} />
+          <Route path="/cashier/account" element={<AccountPage />} />
         </Route>
       </Route>
     </Routes>

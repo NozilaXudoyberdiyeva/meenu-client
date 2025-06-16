@@ -23,7 +23,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
-  const { setToken, setRole, setRestaurantId, setPhone } = useAuthStore();
+  const { setToken, setRole, setRestaurantId } = useAuthStore();
 
   const {
     register,
@@ -42,7 +42,6 @@ export default function Login() {
       setToken(data.token);
       setRole(data.user.role);
       setRestaurantId(data.user.restaurantId);
-      setPhone(data.user.phone);
       toast.success("Muvaffaqiyatli tizimga kirildi!");
       const role = data.user.role.toLowerCase();
       setRole(role);
