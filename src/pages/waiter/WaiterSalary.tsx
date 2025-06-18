@@ -11,13 +11,13 @@ interface User {
 }
 
 export default function WaiterSalaryPage() {
-  const { phone } = useAuthStore();
+  const { user } = useAuthStore(); // ✅ phone emas, user.phone ishlatiladi
 
   useEffect(() => {
-    if (phone) {
-      localStorage.setItem("phone", phone);
+    if (user?.phone) {
+      localStorage.setItem("phone", user.phone);
     }
-  }, [phone]);
+  }, [user]);
 
   const savedPhone = localStorage.getItem("phone") || "";
 
